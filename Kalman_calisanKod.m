@@ -1,4 +1,4 @@
- clear all; 
+clear all; 
 close all; 
 clc
 %% Read video into MATLAB using aviread
