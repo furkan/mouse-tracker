@@ -17,7 +17,7 @@ float **transpose24(float m[2][4]); // transpose of 2x4
 float **transpose21(float m[2][1]); // transpose of 2x1
 float **transpose14(float m[1][4]); // transpose of 1x4
 
-float **inverse(float m[2][2]);
+float *inverse(float m[2][2]);
 
 int main()
 {
@@ -43,8 +43,20 @@ float measurement_vector[4]={measured_x,measured_y,velocity_x,velocity_y};
 float estimation_vector[4]={estimated_x,estimated_y,velocity_est_x,velocity_est_y};
 
 float temp[2][2]={1,2,3,4};
-float **a;
+float *a;
+int k=0;
 a = inverse(temp);
+printf("\n\n\n\n");
+for(int i = 0; i < 2; i++)
+    {
+		for(int j = 0; j < 2; j++)
+        {
+            printf("%f\t\n",a[k]);
+            k++;
+        }
+
+		printf("\n");
+	}
 
 
 
@@ -488,8 +500,8 @@ float **transpose14(float m[1][4])
 ////INVERSE//////////////////INVERSE///////////
 ///////////INVERSE/////////////INVERSE///////
 /////////////////////////////////////////////
-float **inverse(float mat[2][2]){
-    float **a_inverse;
+float *inverse(float mat[2][2]){
+    static float a_inverse[4];
 	int i, j;
 	float determinant = 0;
 	float temp;
@@ -506,10 +518,22 @@ float **inverse(float mat[2][2]){
     mat[0][1]=-mat[0][1];
     mat[1][0]=-mat[1][0];
 
-	for(i = 0; i < 2; i++){
+    //determinant = mat[0][0]*mat[1][1]-mat[0][1]*mat[1][0];
+
+	//printf("\n\ndeterminant: %f\n", determinant);
+
+    //printf("\n%f\n",mat[0][1]);
+
+    int k = 0;
+	for(i = 0; i < 2; i++)
+    {
 		for(j = 0; j < 2; j++)
-            a_inverse[i][j]=mat[i][j]/ determinant;
-			printf("%.2f\t",a_inverse[i][j]);
+        {
+            temp = mat[i][j]/ determinant;
+			printf("%f\t",temp);
+			a_inverse[k] = temp;
+			k++;
+        }
 
 		printf("\n");
 	}
