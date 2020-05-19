@@ -1,15 +1,23 @@
- clear all; 
+clear all; 
 close all; 
 clc
 %% Read video into MATLAB using aviread
-video = aviread('rhinos.AVI');
+%video = aviread('rhinos.AVI');
+v = VideoReader('rhinos.AVI');
+video = read(v,[50 Inf]);
 %'n' for calculating the number of frames in the video file
 n = length(video);
 % Calculate the background image by averaging the first 10 images
-temp = zeros(size(video(1).cdata));
-[M,N] = size(temp(:,:,1));
+%temp = zeros(size(video(1).cdata));
+%[M,N] = size(temp(:,:,1));
+
+uu=size(video);
+M=uu(1);
+N=uu(2);
+temp=zeros(M,N,uu(3));
+    
 for i = 1:10
-    temp = double(video(i).cdata) + temp;
+    temp = double(video(:,:,:,i)) + temp;
 end
 imbkg = temp/10;
 % Initialization step for Kalman Filter
@@ -33,11 +41,20 @@ A=[[1,0,0,0]',[0,1,0,0]',[dt,0,1,0]',[0,dt,0,1]'];
 % loop over all image frames in the video
 kfinit = 0;
 th = 38;
+count=0;
 for i=1:n
-  imshow(video(i).cdata);
+  imshow(video(:,:,:,i));
   hold on
-  imcurrent = double(video(i).cdata);
+  if count==0
+  imcurrent = double(video(:,:,:,i));
+ girdi=1
+  end
+      count=count+1;
  
+  if count==5
+      count=0;
+  end
+  count
   % Calculate the difference image to extract pixels with more than 40(threshold) change
   diffimg = zeros(M,N);
   diffimg = (abs(imcurrent(:,:,1)-imbkg(:,:,1))>th) ...
@@ -70,6 +87,8 @@ for i=1:n
   rectangle('Position',[xcorner ycorner xwidth ywidth],'EdgeColor','b');
   hold on
   plot(centroidx(i),centroidy(i), 'bx');
+  
+  
   % Kalman window size
   kalmanx = centroidx(i)- xcorner;
   kalmany = centroidy(i)- ycorner;
@@ -91,4 +110,8 @@ rectangle('Position',[(actual(i,1)-kalmanx) (actual(i,2)-kalmany) xwidth ywidth]
   hold on
   plot(actual(i,1),actual(i,2), 'rx','LineWidth',1.5);
   drawnow;
+  
+
+ 
+  pause(0.5);
 end
