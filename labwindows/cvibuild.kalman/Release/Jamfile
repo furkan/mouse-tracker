@@ -1,0 +1,54 @@
+HDRS = 	"c:\\program files (x86)\\national instruments\\cvi2019\\toolslib\\activex\\word"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\toolslib\\activex\\excel"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\toolslib\\custctrl"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\toolslib\\custctrl\\custsupp"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\toolslib\\cvirtsup"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\toolslib\\datasock"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\toolslib\\daqUtil"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\toolslib\\printing"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\toolslib\\toolbox"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\toolslib\\reportgen"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\toolslib\\localui"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\instr"
+	"C:\\Program Files (x86)\\National Instruments\\Shared\\CVI\\toolslib\\custctrl"
+	"C:\\Program Files (x86)\\National Instruments\\Shared\\CVI\\toolslib\\custctrl\\custsupp"
+	"C:\\Program Files (x86)\\National Instruments\\Shared\\CVI\\instr"
+	"C:\\ProgramData\\National Instruments\\CVI2019\\instr"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\include"
+	"C:\\Program Files (x86)\\National Instruments\\Shared\\CVI\\include"
+	"C:\\ProgramData\\National Instruments\\CVI2019\\include"
+	"C:\\ProgramData\\National Instruments\\CVI\\include"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\include\\ansi"
+	"c:\\program files (x86)\\national instruments\\cvi2019\\include\\clang\\3.3"
+	"C:\\Program Files (x86)\\IVI Foundation\\IVI\\Include"
+	"C:\\Program Files (x86)\\IVI Foundation\\VISA\\winnt\\include"
+	"C:\\Program Files (x86)\\National Instruments\\Shared\\MSDTRedistributables\\SDKHeaderFiles\\8.1"
+	"c:\\Program Files (x86)\\National Instruments\\CVI2019\\bin"
+	"c:\\Program Files (x86)\\National Instruments\\Shared\\CVI\\bin"
+	;
+include Jamfile_instr ;
+LOCATE on "kalman.c" = "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows" ;
+LOCATE on "kalman.h" = "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows" ;
+Object "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.obj" : "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\kalman.c" ;
+FILENUM on "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.obj" = 1 ;
+DEFPROTS on "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.obj" = "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.obj.cvidefprots" ;
+OUTFILE on "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.obj" = "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.obj.out" ;
+PrjObjects += "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.obj" ;
+Object "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.h.hdefs" : "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\kalman.h" ;
+FILENUM on "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.h.hdefs" = 2 ;
+OUTFILE on "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.h.hdefs" = "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.h.hdefs.out" ;
+PreLinkInputs += "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\resources.in.rc" ;
+PreLinkInputs += $(PrjObjects) $(InstrObjects) ;
+PreLinkOutputs += "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\resources.out.rc" ;
+PreLinkOutputs += "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.dll.defs" ;
+PreLink $(PreLinkOutputs) : $(PreLinkInputs) ;
+Depends "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.dll" : "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.dll.defs" ;
+Object "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\resources.res" : "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\resources.out.rc" ;
+Depends "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\resources.res" : $(PreLinkOutputs) ;
+Depends "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\resources.res" "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\resources.out.rc" : $(PrjObjects) $(InstrObjects) ;
+Depends "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\resources.res" : "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\manifest.xml" ;
+MainFromObjects "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.dll" : $(PrjObjects) $(InstrObjects) ;
+Depends "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.dll" : "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\link_options.txt" ;
+Depends "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.dll" : "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\dependencies.lnk.in" ;
+Depends "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.dll" : "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\resources.res" ;
+Depends all : "c:\\Users\\aldemir\\Desktop\\mouse-tracker\\labwindows\\cvibuild.kalman\\Release\\kalman.dll" ;

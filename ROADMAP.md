@@ -6,9 +6,9 @@
 
 - [x] Implement the Kalman filter algorithm
 
-- [ ] Make the C function's input and output the current and the predicted mouse coordinates respectively, respectively
+- [x] Make the C function's input and output the current and the predicted mouse coordinates respectively, respectively
  
-- [ ] Produce the shared library function `kalman.so`
+- [x] Produce the shared library function as `dll`
 
 ## LabWindows
 

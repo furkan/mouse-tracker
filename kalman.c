@@ -5,48 +5,37 @@
 
 int main()
 {
-/* Initialize the Kalman filter
- R - measurement noise, (2x2): R=[[0.2845,0.0045]',[0.0045,0.0455]'];
- H - transform from measure to state (2x4): H=[[1,0]',[0,1]',[0,0]',[0,0]'];
- Q - system noise, (4x4) (diagonal): Q=0.01*eye(4);
- P - the status covarince matrix (4x4) (diagonal): P=100*eye(4);
- A - state transform matrix (4x4): A=[[1,0,0,0]',[0,1,0,0]',[dt,0,1,0]',[0,dt,0,1]'];
-*/
+    /* Initialize the Kalman filter
+    R - measurement noise, (2x2): R=[[0.2845,0.0045]',[0.0045,0.0455]'];
+    H - transform from measure to state (2x4): H=[[1,0]',[0,1]',[0,0]',[0,0]'];
+    Q - system noise, (4x4) (diagonal): Q=0.01*eye(4);
+    P - the status covarince matrix (4x4) (diagonal): P=100*eye(4);
+    A - state transform matrix (4x4): A=[[1,0,0,0]',[0,1,0,0]',[dt,0,1,0]',[0,dt,0,1]'];
+    */
 
 
-// NOTE THAT MATRICES ARE CONSTRUCTED IN THE ROW ORDER; THAT IS, IF MATRIS IS 4X4 THAN THE ARRAY CONTAINS 16 ELEMENTS AND FIRST 4 BELONGS TO FIRST ROW
-// SECOND 4 BELONGS TO SECOND ROW ETC
+    // NOTE THAT MATRICES ARE CONSTRUCTED IN THE ROW ORDER; THAT IS, IF MATRIS IS 4X4 THAN THE ARRAY CONTAINS 16 ELEMENTS AND FIRST 4 BELONGS TO FIRST ROW
+    // SECOND 4 BELONGS TO SECOND ROW ETC
 
 
-float R[4] = {0.2845,0.0045,0.0045,0.0455}; // 2x2
-// float H[8] = {1,0,0,0,0,1,0,0}; SADECE 1 VE 0 OLDU�U ���N KA�IDA �IKARTTIM �ARPIM SONU�LARINI O Y�ZDEN BUNU KULLANMIYORUZ
-float Q[4] = {0.01,0.01,0.01,0.01}; // 4x4 diagonal
-float P[16] = {100,0,0,0,0,100,0,0,0,0,100,0,0,0,0,100}; // 4x4
-float Ppre[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; // 4x4
-float dt = 1;
-// float A[16] �ARPIM SONUCU BUNU DA �IKARDIK O Y�ZDEN BUNU TANIMLAMAYA GEREK YOK
-float U[4] = {0,0,0,0}; // GE��C� B�R MATR�S BU
-float a[4] = {0,0,0,0}; //  K = y A'(AA')^-1   // a = A
-float b[4] = {0,0,0,0}; //  u =   A'(AA')^-1   // b = (AA')^-1
-float c = 0;
-float det = 0;
-float K[8] = {0,0,0,0,0,0,0,0}; // KALMAN GAIN
-float predicted[4]={0,0,0,0}; // INITIAL PREDICT ????  (SANIRIM Xpos,Ypos,Xvelo,Yvelo diye dizli ve bunu �l��mden al�yoruz)
-float actual[4]={0,0,0,0}; // KALMAN SONUCU
-float pre_x, pre_y, vel_x, vel_y, curr_x, curr_y, noisy_preX, noisy_preY, noisy_currX, noisy_currY, noisy_velX, noisy_velY;
-float time_pass = 0, t;
-float noise = 0.1;
-int kfinit = 0;
-// float temp1,temp2,temp3,temp4;
+    float R[4] = {0.2845,0.0045,0.0045,0.0455}; // 2x2
+    float Q[4] = {0.01,0.01,0.01,0.01}; // 4x4 diagonal
+    float P[16] = {100,0,0,0,0,100,0,0,0,0,100,0,0,0,0,100}; // 4x4
+    float Ppre[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; // 4x4
+    float dt = 1;
+    float U[4] = {0,0,0,0}; // temporary matrix
+    float a[4] = {0,0,0,0}; //  K = y A'(AA')^-1   // a = A
+    float b[4] = {0,0,0,0}; //  u =   A'(AA')^-1   // b = (AA')^-1
+    float c = 0;
+    float det = 0;
+    float K[8] = {0,0,0,0,0,0,0,0}; // KALMAN GAIN
+    float predicted[4]={0,0,0,0}; // INITIAL PREDICTION ????  (SANIRIM Xpos,Ypos,Xvelo,Yvelo diye dizli ve bunu �l��mden al�yoruz)
+    float actual[4]={0,0,0,0}; // KALMAN SONUCU
+    float pre_x, pre_y, vel_x, vel_y, curr_x, curr_y, noisy_preX, noisy_preY, noisy_currX, noisy_currY, noisy_velX, noisy_velY;
+    float time_pass = 0, t;
+    float noise = 0.1;
 
-/*
-  Ppre = A*P*A' + Q;
-  K = Ppre*H'/(H*Ppre*H'+R);
-  actual(i,:) = (predicted + K*([centroidx(i),centroidy(i)]' - H*predicted))';
-  P = (eye(4)-K*H)*Ppre;
-*/
-
-POINT punkt;
+    POINT punkt;
 
     while(1)
     {
@@ -69,22 +58,16 @@ POINT punkt;
         noisy_currX = curr_x + noise*(rand()%50);
         noisy_currY = curr_y + noise*(rand()%50);
 
-        vel_x = (noisy_currX-noisy_preX)/time_pass;
-        vel_y = (noisy_currY-noisy_preY)/time_pass;
+        //vel_x = (noisy_currX-noisy_preX)/time_pass;
+        //vel_y = (noisy_currY-noisy_preY)/time_pass;
 
-        if (kfinit == 0) {
-            predicted[0] = noisy_currX;
-            predicted[1] = noisy_currY;
-            predicted[2] = vel_x;
-            predicted[3] = vel_y;
-            kfinit = 1;
-        }
-        else {
-            predicted[0] = actual[0] + dt * actual[2];
-            predicted[1] = actual[1] + dt * actual[3];
-            predicted[2] = actual[2];
-            predicted[3] = actual[3];
-        }
+        vel_x = 0;
+        vel_y = 0;
+
+        predicted[0] = actual[0] + dt * actual[2];
+        predicted[1] = actual[1] + dt * actual[3];
+        predicted[2] = actual[2];
+        predicted[3] = actual[3];
 
         Ppre[0]  = P[0]  + P[8] *dt + dt*(P[2]+P[10]*dt)  + Q[0];
         Ppre[1]  = P[1]  + P[9] *dt + dt*(P[3]+P[11]*dt);

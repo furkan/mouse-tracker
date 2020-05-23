@@ -1,0 +1,5 @@
+[kalman]
+Class="Function"
+Prototype="void kalman(float cursor_pos[], float actual[], float noise);"
+SourceLocation="c:\Users\aldemir\Desktop\mouse-tracker\labwindows\kalman.c:6:1"
+

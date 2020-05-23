@@ -1,0 +1,6 @@
+-inrc c:\Users\aldemir\Desktop\mouse-tracker\labwindows\cvibuild.kalman\Release\resources.in.rc
+-outrc c:\Users\aldemir\Desktop\mouse-tracker\labwindows\cvibuild.kalman\Release\resources.out.rc
+-inhdef c:\Users\aldemir\Desktop\mouse-tracker\labwindows\cvibuild.kalman\Release\kalman.h.hdefs
+-outdef c:\Users\aldemir\Desktop\mouse-tracker\labwindows\cvibuild.kalman\Release\kalman.dll.defs
+-indefprot c:\Users\aldemir\Desktop\mouse-tracker\labwindows\cvibuild.kalman\Release\kalman.obj.cvidefprots
+-dllName kalman.dll
