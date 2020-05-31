@@ -20,8 +20,8 @@ void kalman(float cursor_pos[], float actual[], float noisy_curr[], float noise)
 	float curr_x = cursor_pos[0];
 	float curr_y = cursor_pos[1];
 	
-	noisy_currX = curr_x + noise*(rand()%50);
-    noisy_currY = curr_y + noise*(rand()%50);
+	noisy_currX = curr_x + noise*(rand()%50 - rand()%50);
+    noisy_currY = curr_y + noise*(rand()%50 - rand()%50);
 
     noisy_curr[0] = noisy_currX;
     noisy_curr[1] = noisy_currY;
