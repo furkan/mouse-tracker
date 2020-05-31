@@ -3,7 +3,7 @@
 #include<windows.h>
 #include<time.h>
 
-void kalman(float cursor_pos[], float actual[], float noise) {
+void kalman(float cursor_pos[], float actual[], float noisy_curr[], float noise) {
 	
 	float R[4] = {0.2845,0.0045,0.0045,0.0455}; // 2x2
     float Q[4] = {0.01,0.01,0.01,0.01}; // 4x4 diagonal
@@ -22,6 +22,9 @@ void kalman(float cursor_pos[], float actual[], float noise) {
 	
 	noisy_currX = curr_x + noise*(rand()%50);
     noisy_currY = curr_y + noise*(rand()%50);
+
+    noisy_curr[0] = noisy_currX;
+    noisy_curr[1] = noisy_currY;
 
     predicted[0] = actual[0] + dt * actual[2];
     predicted[1] = actual[1] + dt * actual[3];

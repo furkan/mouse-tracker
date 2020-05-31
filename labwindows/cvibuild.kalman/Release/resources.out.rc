@@ -40,7 +40,7 @@ END
 
 CVIDLLexports CVIDLLprototypes
 {
-   "void kalman(float cursor_pos[], float actual[], float noise);"
+   "void kalman(float cursor_pos[], float actual[], float noisy_curr[], float noise);"
    "\n",
    "\0"
 }
